@@ -10,21 +10,21 @@ ul {
 }
 
 :root {
-  --background-overlay: url(./assets/bg-yellow.svg);
+  --background-overlay: url(./bg-yellow.svg);
   --card-background-color: #1e1d1a;
   --card-primary-color: hsl(51, 92%, 62%);
   --card-title-border-color: hsl(51, 69%, 27%);
 }
 
 body.blue {
-  --background-overlay: url(./assets/bg-blue.svg);
+  --background-overlay: url(./bg-blue.svg);
   --card-background-color: #1f1f23;
   --card-primary-color: hsl(213, 89%, 58%);
   --card-title-border-color: hsl(213, 66%, 23%);
 }
 
 body.green {
-  --background-overlay: url(./assets/bg-green.svg);
+  --background-overlay: url(./bg-green.svg);
   --card-background-color: #1a1f1b;
   --card-primary-color: hsl(150, 94%, 25%);
   --card-title-border-color: hsl(150, 71%, 17%);
