@@ -59,3 +59,11 @@ document.querySelector("#cards").innerHTML =
     createGame("switzerland", "07:00", "cameroon") +
       createGame("uruguay", "10:00", "south-korea")
   )
+
+const bodyElement = document.querySelector("body")
+const themeList = ["blue", "green", ""]
+let index = 0
+setInterval(() => {
+  bodyElement.className = themeList[index]
+  index < 2 ? index++ : (index = 0)
+}, 30000)
