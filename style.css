@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+a {
+  color: #e1e1e6;
+}
+
 ul {
   list-style: none;
 }
@@ -129,16 +133,44 @@ header img {
   height: 50px;
 }
 
+.card ul li .country {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.country strong {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.country img + strong {
+  backdrop-filter: brightness(0.65);
+}
+
+.country.winner {
+  border: green 2px solid;
+  border-radius: 50%;
+}
+
+footer {
+  margin: 36px 0px -16px;
+  color: #e1e1e6;
+}
+
 /* ====== TRANSITIONS ====== */
 .card h2,
-.card ul li strong,
-.card ul li img {
+.card ul li > strong,
+.card ul li .country {
   transition: transform 0.4s;
 }
 
 .card h2:hover,
-.card ul li strong:hover,
-.card ul li img:hover {
+.card ul li > strong:hover,
+.card ul li .country:hover {
   transform: scale(1.08);
 }
 
