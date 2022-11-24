@@ -157,7 +157,8 @@ header img {
 }
 
 footer {
-  margin: 36px 0px -16px;
+  width: 272px;
+  margin: 36px auto -16px;
   color: #e1e1e6;
 }
 
