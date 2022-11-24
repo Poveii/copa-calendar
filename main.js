@@ -1,15 +1,105 @@
 import "./style.css"
 
-function createGame(player1, hour, player2) {
+function giveDayDate(date) {
+  const weekDays = [
+    "Domingo",
+    "Segunda",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+  ]
+
+  let index = new Date(`2022-${date} 12:00:00`).getDay()
+  return weekDays[index]
+}
+
+function giveFormattedDate(date) {
+  let newDate = new Date(date)
+  let day = newDate.getDate()
+  let month = newDate.getMonth()
+  if (day <= 9) day = `0${newDate.getDate()}`
+  return `${month + 1}-${day}`
+}
+
+function giveHourDate(date) {
+  let hour = new Date(date).getHours()
+  if (hour <= 9) hour = `0${hour}`
+  return `${hour}:00`
+}
+
+fetch("https://copa22.medeiro.tech/matches")
+  .then((response) => response.json())
+  .then((api) => {
+    const gamesGroupedByDate = {}
+    api.forEach((game) => {
+      const gameDate = giveFormattedDate(game.date)
+
+      if (!gamesGroupedByDate[gameDate]) {
+        gamesGroupedByDate[gameDate] = []
+      }
+
+      gamesGroupedByDate[gameDate].push(game)
+    })
+
+    Object.entries(gamesGroupedByDate).forEach(([date, games]) => {
+      const createdGames = games.map((game) => {
+        return createGame(
+          game.homeTeam,
+          giveHourDate(game.date),
+          game.awayTeam,
+          game.status
+        )
+      })
+
+      const dayDate = giveDayDate(date)
+      date = date.split("-").reverse().join("/")
+
+      document.querySelector("#cards").innerHTML += createCard(
+        date,
+        dayDate,
+        createdGames.join("")
+      )
+    })
+  })
+
+function createGame(player1, hour, player2, status) {
+  let { name: name1, goals: goals1 } = player1
+  let { name: name2, goals: goals2 } = player2
+
+  if (status == "scheduled") {
+    goals1 = ""
+    goals2 = ""
+  }
+
   return `
     <li>
-      <img src="./assets/${player1}-flag.svg" alt="Bandeira do país ${player1}" 
-      title="${player1[0].toUpperCase() + player1.substr(1)}" />
+      <div class="country" title="${
+        name1[0].toUpperCase() + name1.substring(1)
+      }">
+        <img src="./assets/${name1
+          .toLowerCase()
+          ?.replace(" ", "-")}-flag.svg" alt="Bandeira do país ${name1
+    .toLowerCase()
+    ?.replace(" ", "-")}"
+         />
+        <strong>${goals1}</strong>
+      </div>
 
       <strong>${hour}</strong>
 
-      <img src="./assets/${player2}-flag.svg" alt="Bandeira do país ${player2}" 
-      title="${player2[0].toUpperCase() + player2.substr(1)}" />
+      <div class="country" title="${
+        name2[0].toUpperCase() + name2.substring(1)
+      }">
+        <img src="./assets/${name2
+          .toLowerCase()
+          ?.replace(" ", "-")}-flag.svg" alt="Bandeira do país ${name2
+    .toLowerCase()
+    ?.replace(" ", "-")}" 
+         />
+        <strong>${goals2}</strong>
+      </div>
     </li>
   `
 }
@@ -27,38 +117,6 @@ function createCard(date, day, games) {
     </div>
   `
 }
-
-document.querySelector("#cards").innerHTML =
-  createCard("20/11", "domingo", createGame("qatar", "13:00", "ecuador")) +
-  createCard(
-    "21/11",
-    "segunda",
-    createGame("england", "10:00", "iran") +
-      createGame("senegal", "13:00", "netherlands") +
-      createGame("united-states", "16:00", "wales")
-  ) +
-  createCard(
-    "22/11",
-    "terça",
-    createGame("argentina", "07:00", "saudi-arabia") +
-      createGame("denmark", "10:00", "tunisia") +
-      createGame("mexico", "13:00", "poland") +
-      createGame("france", "16:00", "australia")
-  ) +
-  createCard(
-    "23/11",
-    "quarta",
-    createGame("morocco", "07:00", "croatia") +
-      createGame("germany", "10:00", "japan") +
-      createGame("spain", "13:00", "costa-rica") +
-      createGame("belgium", "16:00", "canada")
-  ) +
-  createCard(
-    "24/11",
-    "quinta",
-    createGame("switzerland", "07:00", "cameroon") +
-      createGame("uruguay", "10:00", "south-korea")
-  )
 
 const bodyElement = document.querySelector("body")
 const themeList = ["blue", "green", ""]
