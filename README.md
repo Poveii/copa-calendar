@@ -30,6 +30,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - JavaScript e JSON
 - [Node e NPM](https://nodejs.org/)
 - [Vite](https://vitejs.dev/)
+- [World Cup API](https://github.com/liverday/world-cup-api)
 
 ## 💻 Projeto
 
