@@ -18,6 +18,7 @@ ul {
   --card-background-color: #1e1d1a;
   --card-primary-color: hsl(51, 92%, 62%);
   --card-title-border-color: hsl(51, 69%, 27%);
+  --selector-background-color: #f7dd45;
 }
 
 body.blue {
@@ -25,6 +26,7 @@ body.blue {
   --card-background-color: #1f1f23;
   --card-primary-color: hsl(213, 89%, 58%);
   --card-title-border-color: hsl(213, 66%, 23%);
+  --selector-background-color: #358af3;
 }
 
 body.green {
@@ -32,6 +34,7 @@ body.green {
   --card-background-color: #1a1f1b;
   --card-primary-color: hsl(150, 94%, 25%);
   --card-title-border-color: hsl(150, 71%, 17%);
+  --selector-background-color: #047c40;
 }
 
 body {
@@ -63,9 +66,35 @@ header img {
 }
 
 /* ====== MAIN ====== */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+#selectors {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.selector {
+  width: 182px;
+  height: 52px;
+
+  background-color: var(--selector-background-color);
+  color: white;
+
+  padding: 16px 50px;
+  border: 1px solid var(--card-title-border-color);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 #cards {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 32px;
 }
 
@@ -163,12 +192,14 @@ footer {
 }
 
 /* ====== TRANSITIONS ====== */
+.selector,
 .card h2,
 .card ul li > strong,
 .card ul li .country {
   transition: transform 0.4s;
 }
 
+.selector:hover,
 .card h2:hover,
 .card ul li > strong:hover,
 .card ul li .country:hover {
