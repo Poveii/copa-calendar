@@ -29,6 +29,30 @@ function giveHourDate(date) {
   return `${hour}:00`
 }
 
+function addGameCard(conditional, [games, date]) {
+  if (conditional) return
+
+  const createdGames = games.map((game) => {
+    return createGame(
+      game.homeTeam,
+      giveHourDate(game.date),
+      game.awayTeam,
+      game.status
+    )
+  })
+
+  const dayDate = giveDayDate(date)
+  date = date.split("-").reverse().join("/")
+
+  document.querySelector("#cards").innerHTML += createCard(
+    date,
+    dayDate,
+    createdGames.join("")
+  )
+}
+
+const preliminariesButton = document.querySelector("#preliminaries")
+const finalsButton = document.querySelector("#finals")
 fetch("https://copa22.medeiro.tech/matches")
   .then((response) => response.json())
   .then((api) => {
@@ -44,23 +68,23 @@ fetch("https://copa22.medeiro.tech/matches")
     })
 
     Object.entries(gamesGroupedByDate).forEach(([date, games]) => {
-      const createdGames = games.map((game) => {
-        return createGame(
-          game.homeTeam,
-          giveHourDate(game.date),
-          game.awayTeam,
-          game.status
-        )
+      addGameCard(date <= "12-02", [games, date])
+    })
+
+    preliminariesButton.addEventListener("click", () => {
+      document.querySelector("#cards").innerHTML = ""
+      animationDelay = -0.4
+      Object.entries(gamesGroupedByDate).forEach(([date, games]) => {
+        addGameCard(date >= "12-03", [games, date])
       })
+    })
 
-      const dayDate = giveDayDate(date)
-      date = date.split("-").reverse().join("/")
-
-      document.querySelector("#cards").innerHTML += createCard(
-        date,
-        dayDate,
-        createdGames.join("")
-      )
+    finalsButton.addEventListener("click", () => {
+      document.querySelector("#cards").innerHTML = ""
+      animationDelay = -0.4
+      Object.entries(gamesGroupedByDate).forEach(([date, games]) => {
+        addGameCard(date <= "12-02", [games, date])
+      })
     })
   })
 
