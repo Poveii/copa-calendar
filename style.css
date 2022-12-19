@@ -177,6 +177,7 @@ main {
 }
 
 .country img + strong {
+  -webkit-backdrop-filter: brightness(0.65);
   backdrop-filter: brightness(0.65);
 }
 
